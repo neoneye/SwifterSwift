@@ -52,7 +52,7 @@ public extension Collection {
 	///
 	/// - Parameter condition: condition to evaluate each element against.
 	/// - Returns: Two arrays, the first containing the elements for which the specified condition evaluates to true, the second containing the rest.
-	public func divided2(by condition: (Iterator.Element) throws -> Bool) rethrows -> (matching: [Iterator.Element], nonMatching: [Iterator.Element]) {
+	public func divided(by condition: (Iterator.Element) throws -> Bool) rethrows -> (matching: [Iterator.Element], nonMatching: [Iterator.Element]) {
 		//Inspired by: http://ruby-doc.org/core-2.5.0/Enumerable.html#method-i-partition
 		var matching: [Iterator.Element] = []
 		var nonMatching: [Iterator.Element] = []

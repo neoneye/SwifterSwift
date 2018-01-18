@@ -28,12 +28,12 @@ final class CollectionExtensionsTests: XCTestCase {
 	func testDivided() {
 		do {
 			let input = [0, 1, 2, 3, 4, 5]
-			let (even, odd) = input.divided2 { $0 % 2 == 0 }
+			let (even, odd) = input.divided { $0 % 2 == 0 }
 			XCTAssertEqual(even, [0, 2, 4])
 			XCTAssertEqual(odd, [1, 3, 5])
 
 			// Parameter names + indexes
-			let tuple = input.divided2 { $0 % 2 == 0 }
+			let tuple = input.divided { $0 % 2 == 0 }
 			XCTAssertEqual(tuple.matching, [0, 2, 4])
 			XCTAssertEqual(tuple.0, [0, 2, 4])
 			XCTAssertEqual(tuple.nonMatching, [1, 3, 5])
@@ -42,8 +42,9 @@ final class CollectionExtensionsTests: XCTestCase {
 
 		do {
 			let input: [String: Int] = ["a": 0, "b": 1, "c": 2, "d": 3, "e": 4, "f": 5]
-			let tuple = input.divided2 { (_, value) in value % 2 == 0 }
-			/// The tuple contains the following:
+			let tuple = input.divided { (_, value) in value % 2 == 0 }
+
+			/// The tuple contains keyvalue pairs in random order:
 			///
 			///     (
 			///         matching: [(key: "e", value: 4), (key: "a", value: 0), (key: "c", value: 2)],
