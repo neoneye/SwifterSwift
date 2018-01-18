@@ -26,6 +26,7 @@ final class CollectionExtensionsTests: XCTestCase {
 	}
 	
 	func testDivided() {
+		// Array.divided(by:)
 		do {
 			let input = [0, 1, 2, 3, 4, 5]
 			let (even, odd) = input.divided { $0 % 2 == 0 }
@@ -40,6 +41,15 @@ final class CollectionExtensionsTests: XCTestCase {
 			XCTAssertEqual(tuple.1, [1, 3, 5])
 		}
 
+		// String.divided(by:)
+		do {
+			let input = "AaBbCc"
+			let tuple = input.divided { $0.isUppercased }
+			XCTAssertEqual(String(tuple.matching), "ABC")
+			XCTAssertEqual(String(tuple.nonMatching), "abc")
+		}
+
+		// Dictionary.divided(by:)
 		do {
 			let input: [String: Int] = ["a": 0, "b": 1, "c": 2, "d": 3, "e": 4, "f": 5]
 			let tuple = input.divided { (_, value) in value % 2 == 0 }
@@ -51,12 +61,14 @@ final class CollectionExtensionsTests: XCTestCase {
 			///         nonMatching: [(key: "b", value: 1), (key: "f", value: 5), (key: "d", value: 3)]
 			///     )
 
+			// Convert keyvalue pairs to dictionary
 			var matchingDict = [String: Int]()
 			for (key, value) in tuple.matching {
 				matchingDict[key] = value
 			}
 			XCTAssertEqual(matchingDict, ["a": 0, "c": 2, "e": 4])
 
+			// Convert keyvalue pairs to dictionary
 			var nonMatchingDict = [String: Int]()
 			for (key, value) in tuple.nonMatching {
 				nonMatchingDict[key] = value
